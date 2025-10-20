@@ -1,16 +1,20 @@
 import { notFound } from "next/navigation";
 import CardDisplay from "@/components/CardDisplay";
+import { getCardIDByName } from "@/lib/api_helpers";
 
 export default async function Layout({ children, params }) {
     const { name } = await params;
     const rawName = decodeURIComponent(name);
 
-    const url = new URL("https://api.scryfall.com/cards/named");
-    url.searchParams.set("fuzzy", rawName);
+    const meta = await getCardIDByName(rawName);
+    const scryfallId = meta?.card_id;
+    if (!scryfallId) return notFound();
 
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetch(`https://api.scryfall.com/cards/${scryfallId}`, {
+        cache: "no-store",
+    });
 
-    if (res.status === 404 || !res.ok) return notFound();
+    if (!res.ok) return notFound();
 
     const card = await res.json();
 
