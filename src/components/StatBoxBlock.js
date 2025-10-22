@@ -30,7 +30,7 @@ export default function StatBoxBlock({
                 }
             />
             <StatBox
-                topLabel="Last 3 Months"
+                topLabel="Since Last Update"
                 value={(block3stats.delta * 100).toFixed(2) * -1 + "%"}
                 bottomLabel={"±" + (block3stats.CI * 100).toFixed(2) + "%"}
                 countLabel={

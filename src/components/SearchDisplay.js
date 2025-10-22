@@ -37,16 +37,20 @@ export default function SearchDisplay({ children }) {
             .filter((i) => !i.include && i.value)
             .map((i) => i.value);
 
-        console.log("Include:", includes);
-        console.log("Exclude:", excludes);
+        if (includes.length === 0 && excludes.length === 0) return;
+
+        const params = new URLSearchParams();
+        if (includes.length) params.set("includes", includes.join(","));
+        if (excludes.length) params.set("excludes", excludes.join(","));
+        window.location.href = `/search?${params.toString()}`;
     };
     return (
         <div className="flex min-h-screen gap-6">
-            <aside className="sticky top-0 h-screen w-120 shrink-0">
+            <aside className="sticky top-0 h-screen w-120 shrink-0 border-r border-white/20">
                 <div className="py-4">
                     <div className="p-6 space-y-4">
                         <h1 className="text-xl font-semibold">
-                            Multi-Card Search
+                            Advanced Search
                         </h1>
 
                         <div className="flex flex-col gap-3">

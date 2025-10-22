@@ -63,6 +63,12 @@ export async function getDeckDetails(deck_array) {
 export async function getDecksIncludingExcluding(includeList, excludeList) {
     //One sql query to return a list of normalised placings (deck placing/event size) for decks
     // containing all of the cards in cardIDList
+    console.log(
+        "Fetching decks with includes:",
+        includeList,
+        "excludes:",
+        excludeList
+    );
     try {
         const sqlQuery = `
             /* First we unpack the include and exclude card lists into table rows */
@@ -135,4 +141,30 @@ export async function getDecksLogicalInverse(includeList, excludeList) {
     const inverse = U.filter((d) => !aIds.has(d.deck_id));
 
     return inverse;
+}
+
+export async function getPoints() {
+    const owner = "Fryyyyy";
+    const repo = "decklist";
+    const path = "js/cards/highlander.txt";
+    const branch = "master";
+
+    const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
+    const textResp = await fetch(rawUrl);
+    if (!textResp.ok) throw new Error("Couldn't fetch file content");
+    const content = await textResp.text();
+
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(
+        path
+    )}&sha=${branch}&per_page=1`;
+    const commitResp = await fetch(apiUrl);
+    if (!commitResp.ok) throw new Error("Couldn't fetch commit info");
+    const [commit] = await commitResp.json();
+
+    return {
+        content,
+        lastChanged: commit?.commit?.committer?.date || null,
+        commitMessage: commit?.commit?.message || "",
+        commitUrl: commit?.html_url || "",
+    };
 }

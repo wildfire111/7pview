@@ -47,7 +47,6 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
     }
 
     return (
-        // hard-dark container, no provider needed
         <div className="bg-neutral-950 text-neutral-100 rounded-xl p-0">
             <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-2xl font-semibold">
@@ -74,13 +73,12 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
 
             <Table
                 aria-label="Deck results for card"
-                // pure Tailwind classes so it’s dark even without theme tokens
                 classNames={{
                     wrapper:
                         "bg-neutral-900 border border-neutral-800 rounded-xl shadow-sm",
-                    th: "bg-neutral-850/100 text-neutral-300 font-semibold",
+                    th: "bg-neutral-850/100 text-neutral-300 font-semibold border-r border-neutral-800 last:border-r-0",
+                    td: "bg-neutral-900 text-neutral-100 text-sm border-r border-neutral-800 last:border-r-0",
                     tr: "hover:bg-neutral-850",
-                    td: "bg-neutral-900 text-neutral-100 text-sm",
                     thead: "sticky top-0 z-10",
                 }}
             >

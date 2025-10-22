@@ -41,7 +41,6 @@ export default function DateControls({
         if (!val) return;
         const nextStart = toISO(val);
         const currentEnd = endISO;
-        // keep end >= start
         const nextEnd = currentEnd < nextStart ? nextStart : currentEnd;
         updateURL(nextStart, nextEnd);
     };
@@ -50,32 +49,41 @@ export default function DateControls({
         if (!val) return;
         const nextEnd = toISO(val);
         const currentStart = startISO;
-        // keep end >= start
         const nextStart = nextEnd < currentStart ? nextEnd : currentStart;
         updateURL(nextStart, nextEnd);
     };
 
     return (
-        <div className="flex flex-wrap items-center gap-3 my-3">
+        <div className="flex items-end gap-3 flex-nowrap overflow-x-auto py-1">
             <DatePicker
                 label="Start"
-                labelPlacement="outside"
+                labelPlacement="outside-left"
                 value={parseDate(startISO)}
                 onChange={onChangeStart}
                 minValue={minValue}
                 maxValue={maxValue}
                 variant="bordered"
                 showMonthAndYearPickers
+                className="w-auto max-w-[16rem]"
+                classNames={{
+                    base: "w-auto",
+                    inputWrapper: "w-auto",
+                }}
             />
             <DatePicker
                 label="End"
-                labelPlacement="outside"
+                labelPlacement="outside-left"
                 value={parseDate(endISO)}
                 onChange={onChangeEnd}
                 minValue={minValue}
                 maxValue={maxValue}
                 variant="bordered"
                 showMonthAndYearPickers
+                className="w-auto max-w-[16rem]"
+                classNames={{
+                    base: "w-auto",
+                    inputWrapper: "w-auto",
+                }}
             />
         </div>
     );

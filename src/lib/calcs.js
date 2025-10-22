@@ -11,13 +11,20 @@ export async function calcCardArrayDelta(
 
     const incExcNormAndCI = calcMeanAnd95CI(incExcFiltered, startDate, endDate);
     const invNormAndCI = calcMeanAnd95CI(invFiltered, startDate, endDate);
-
-    const delta = incExcNormAndCI.mean - invNormAndCI.mean;
+    let delta;
+    let marginOfError;
+    if (!incExcNormAndCI || !invNormAndCI) {
+        delta = 0;
+        marginOfError = 0;
+    } else {
+        delta = incExcNormAndCI.mean - invNormAndCI.mean;
+        marginOfError = incExcNormAndCI.marginOfError;
+    }
     return {
         delta,
         incExcCount: incExcFiltered.length,
         invCount: invFiltered.length,
-        CI: incExcNormAndCI.marginOfError,
+        CI: marginOfError,
         inc_count: incExcFiltered.length,
         inv_count: invFiltered.length,
     };
