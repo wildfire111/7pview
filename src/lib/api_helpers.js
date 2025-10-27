@@ -151,15 +151,27 @@ export async function getPoints() {
 
     const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
     const textResp = await fetch(rawUrl);
-    if (!textResp.ok) throw new Error("Couldn't fetch file content");
+    if (!textResp.ok) {
+        throw new Error(
+            `Couldn't fetch file content. Status: ${textResp.status} ${textResp.statusText}`
+        );
+    }
     const content = await textResp.text();
 
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(
         path
     )}&sha=${branch}&per_page=1`;
+
     const commitResp = await fetch(apiUrl);
-    if (!commitResp.ok) throw new Error("Couldn't fetch commit info");
-    const [commit] = await commitResp.json();
+    if (!commitResp.ok) {
+        const errorBody = await commitResp.text().catch(() => "Unknown error");
+        throw new Error(
+            `Couldn't fetch commit info. Status: ${commitResp.status} ${commitResp.statusText}. Response: ${errorBody}`
+        );
+    }
+
+    const commits = await commitResp.json();
+    const commit = commits[0];
 
     return {
         content,
