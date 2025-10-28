@@ -1,11 +1,17 @@
 "use client";
 
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
+import {
+    Navbar,
+    NavbarBrand,
+    NavbarContent,
+    NavbarItem,
+    Button,
+} from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import CardSearchInput from "@/components/CardSearchInput";
 
-export default function SiteNavbar() {
+export default function NavigationBar() {
     const router = useRouter();
 
     const handleSubmit = (name) => {
@@ -31,6 +37,16 @@ export default function SiteNavbar() {
             <NavbarContent justify="end">
                 <NavbarItem>
                     <CardSearchInput onSubmit={handleSubmit} />
+                </NavbarItem>
+                <NavbarItem>
+                    <Button
+                        as={Link}
+                        href="/search"
+                        color="secondary"
+                        variant="flat"
+                    >
+                        Adv.
+                    </Button>
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

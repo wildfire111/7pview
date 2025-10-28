@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import CardDisplay from "@/components/CardDisplay";
-import { getCardIDByName } from "@/lib/api_helpers";
+import { getCardIdByName } from "@/lib/database";
 
 export default async function Layout({ children, params }) {
     const { name } = await params;
     const rawName = decodeURIComponent(name);
 
-    const meta = await getCardIDByName(rawName);
+    const meta = await getCardIdByName(rawName);
     const scryfallId = meta?.card_id;
     if (!scryfallId) return notFound();
 

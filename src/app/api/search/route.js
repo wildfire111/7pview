@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import {
+    getCardIdByName,
+    getDecksContainingCard,
+    getDeckDetails,
+    getDecksWithCardFilter,
     getDecksIncludingExcluding,
     getDecksLogicalInverse,
-    getCardIDByName,
-} from "@/lib/api_helpers";
+} from "@/lib/database";
+import { searchDecks } from "@/lib/services";
 
 export const runtime = "nodejs";
 
@@ -21,7 +25,7 @@ export async function POST(req) {
         // Get card IDs for includes
         const includesIDs = await Promise.all(
             includes.map(async (cardName) => {
-                const result = await getCardIDByName(cardName);
+                const result = await getCardIdByName(cardName);
                 return result.card_id;
             })
         );
@@ -29,7 +33,7 @@ export async function POST(req) {
         // Get card IDs for excludes
         const excludesIDs = await Promise.all(
             excludes.map(async (cardName) => {
-                const result = await getCardIDByName(cardName);
+                const result = await getCardIdByName(cardName);
                 return result.card_id;
             })
         );

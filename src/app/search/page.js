@@ -18,14 +18,14 @@ export default function Page() {
         const includes = searchParams.get("includes")
             ? searchParams
                   .get("includes")
-                  .split(",")
+                  .split("|")
                   .map((s) => s.trim())
                   .filter(Boolean)
             : [];
         const excludes = searchParams.get("excludes")
             ? searchParams
                   .get("excludes")
-                  .split(",")
+                  .split("|")
                   .map((s) => s.trim())
                   .filter(Boolean)
             : [];
@@ -128,8 +128,8 @@ export default function Page() {
         if (includes.length === 0 && excludes.length === 0) return;
 
         const params = new URLSearchParams();
-        if (includes.length) params.set("includes", includes.join(","));
-        if (excludes.length) params.set("excludes", excludes.join(","));
+        if (includes.length) params.set("includes", includes.join("|"));
+        if (excludes.length) params.set("excludes", excludes.join("|"));
 
         // Update URL without full page reload
         window.history.pushState({}, "", `/search?${params.toString()}`);
@@ -142,14 +142,14 @@ export default function Page() {
     const currentIncludes = searchParams.get("includes")
         ? searchParams
               .get("includes")
-              .split(",")
+              .split("|")
               .map((s) => s.trim())
               .filter(Boolean)
         : [];
     const currentExcludes = searchParams.get("excludes")
         ? searchParams
               .get("excludes")
-              .split(",")
+              .split("|")
               .map((s) => s.trim())
               .filter(Boolean)
         : [];

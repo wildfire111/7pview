@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
+import { getCardIdByName } from "@/lib/database";
 import {
-    getCardIDByName,
     getDecksIncludingExcluding,
     getDecksLogicalInverse,
-} from "@/lib/api_helpers";
+} from "@/lib/database";
 import ResultsDisplay from "@/components/ResultsDisplay";
 
 export default async function Page({ params, searchParams }) {
@@ -17,7 +17,7 @@ export default async function Page({ params, searchParams }) {
     if (res.status === 404) return notFound();
     if (!res.ok) return notFound();
 
-    const card = await getCardIDByName(rawName).catch(() => null);
+    const card = await getCardIdByName(rawName).catch(() => null);
     if (!card?.card_id) return notFound();
 
     // Fetch lists. Pass raw rows to the component so it can do all calculating
