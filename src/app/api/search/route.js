@@ -8,11 +8,30 @@ import {
     getDecksLogicalInverse,
 } from "@/lib/database";
 import { searchDecks } from "@/lib/services";
+import { searchRateLimit } from "@/lib/middleware/rate-limit";
 
 export const runtime = "nodejs";
 
 export async function POST(req) {
     try {
+        // Apply rate limiting
+        const rateLimitResult = await searchRateLimit(req);
+        if (rateLimitResult.blocked) {
+            return NextResponse.json(
+                { 
+                    error: "Rate limit exceeded", 
+                    resetTime: rateLimitResult.resetTime 
+                },
+                { 
+                    status: 429,
+                    headers: {
+                        'Retry-After': String(rateLimitResult.resetTime),
+                        'X-RateLimit-Remaining': '0'
+                    }
+                }
+            );
+        }
+
         const { includes, excludes } = await req.json();
 
         if (!includes || !excludes) {
