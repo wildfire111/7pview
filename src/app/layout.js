@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en" className="dark">
-            <body className="min-h-screen flex flex-col">
+        <html lang="en" className="dark" data-theme="dark">
+            <body className="min-h-screen flex flex-col bg-black text-white">
                 <NavigationBar />
                 <main className="p-6 flex-1">{children}</main>
                 <Footer />
