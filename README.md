@@ -60,7 +60,7 @@ A powerful web application for analysing Magic: The Gathering deck statistics an
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 src/
@@ -86,7 +86,7 @@ src/
 └── styles/                # Global styles
 ```
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### GET `/api/stats`
 
@@ -126,39 +126,17 @@ Advanced search for decks containing specific cards.
 }
 ```
 
-## 🛠️ Built With
+## Built With
 
 -   **[Next.js 15](https://nextjs.org/)** - React framework with App Router
 -   **[React 19](https://react.dev/)** - UI library
 -   **[HeroUI](https://heroui.com/)** - Modern React UI components
 -   **[PostgreSQL](https://postgresql.org/)** - Database with `pg` driver
 -   **[Tailwind CSS 4](https://tailwindcss.com/)** - Utility-first CSS framework
--   **[Lucide React](https://lucide.dev/)** - Beautiful icons
+-   **[Lucide React](https://lucide.dev/)** - Icons
 -   **[jStat](https://github.com/jstat/jstat)** - Statistical calculations
 
-## 📈 Key Features Explained
-
-### Statistical Analysis
-
--   **Delta Calculations**: Compare card performance against baseline
--   **Confidence Intervals**: Statistical significance testing
--   **Performance Metrics**: Win rates, usage statistics, and trends
-
-### Visual Spoiler
-
--   Integrates with Scryfall API for high-quality card images
--   Organized by point values from GitHub data source
--   Collapsible sections for easy navigation
--   Responsive grid layout
-
-### Advanced Search
-
--   Include/exclude multiple cards simultaneously
--   Real-time deck filtering
--   Statistical analysis of search results
--   Export capabilities for further analysis
-
-## 🚀 Deployment
+## Deployment
 
 ### Environment Variables (Production)
 
@@ -168,7 +146,7 @@ NODE_ENV=production
 PORT=3000
 ```
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -176,11 +154,11 @@ PORT=3000
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 -   [Scryfall](https://scryfall.com/) for comprehensive MTG card data and images
 -   [HeroUI](https://heroui.com/) for beautiful, accessible React components
