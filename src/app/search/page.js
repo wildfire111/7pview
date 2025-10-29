@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@heroui/react";
 import { Plus } from "lucide-react";
 import CardSearchInput from "@/components/CardSearchInput";
 import ResultsDisplay from "@/components/ResultsDisplay";
 
-export default function Page() {
+function SearchPage() {
     const searchParams = useSearchParams();
     const [inputs, setInputs] = useState([{ id: 1, value: "", include: true }]);
     const [searchResults, setSearchResults] = useState(null);
@@ -335,5 +335,13 @@ export default function Page() {
                 )}
             </main>
         </div>
+    );
+}
+
+export default function Page() {
+    return (
+        <Suspense fallback={<div className="p-4">Loading search...</div>}>
+            <SearchPage />
+        </Suspense>
     );
 }

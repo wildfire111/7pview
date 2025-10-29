@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     Card,
     CardBody,
@@ -21,11 +21,7 @@ export default function SpoilerPage() {
     const [error, setError] = useState(null);
     const [selectedTab, setSelectedTab] = useState("");
 
-    useEffect(() => {
-        fetchPointsData();
-    }, []);
-
-    const fetchPointsData = async () => {
+    const fetchPointsData = useCallback(async () => {
         try {
             setLoading(true);
             const response = await fetch("/api/stats");
@@ -68,7 +64,11 @@ export default function SpoilerPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [selectedTab]);
+
+    useEffect(() => {
+        fetchPointsData();
+    }, [fetchPointsData]);
 
     const getScryfallImageUrl = (scryfallId) => {
         if (!scryfallId || scryfallId.length < 2) {

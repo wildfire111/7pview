@@ -51,7 +51,7 @@ export default function AboutPage() {
                                 Delta
                             </Chip>{" "}
                             value represents how much a card improves or hurts a
-                            deck's win rate compared to the format average.
+                            deck&apos;s win rate compared to the format average.
                         </p>
 
                         <div className="bg-content2 p-4 rounded-lg">
@@ -103,7 +103,7 @@ export default function AboutPage() {
                     <CardBody className="space-y-4">
                         <p>
                             We use <strong>80% confidence intervals</strong> to
-                            provide a range of likely values for each card's
+                            provide a range of likely values for each card&apos;s
                             true performance impact.
                         </p>
 
@@ -138,7 +138,7 @@ export default function AboutPage() {
                                 </div>
                                 <div>
                                     <strong>Interval crosses zero:</strong> The
-                                    card's impact may not be statistically
+                                    card&apos;s impact may not be statistically
                                     significant
                                 </div>
                             </div>

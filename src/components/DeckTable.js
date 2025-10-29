@@ -50,7 +50,7 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
         <div className="bg-neutral-950 text-neutral-100 rounded-xl p-0">
             <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-2xl font-semibold">
-                    Decks containing "{rawName}"
+                    Decks containing &quot;{rawName}&quot;
                 </h2>
 
                 <Pagination
