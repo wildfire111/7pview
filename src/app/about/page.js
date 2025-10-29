@@ -103,8 +103,8 @@ export default function AboutPage() {
                     <CardBody className="space-y-4">
                         <p>
                             We use <strong>80% confidence intervals</strong> to
-                            provide a range of likely values for each card&apos;s
-                            true performance impact.
+                            provide a range of likely values for each
+                            card&apos;s true performance impact.
                         </p>
 
                         <div className="bg-content2 p-4 rounded-lg">
