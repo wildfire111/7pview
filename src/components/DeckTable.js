@@ -89,7 +89,6 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
                     <TableColumn>Archetype</TableColumn>
                     <TableColumn>Placement</TableColumn>
                     <TableColumn>Normalised</TableColumn>
-                    <TableColumn>Players</TableColumn>
                     <TableColumn align="end">Moxfield</TableColumn>
                 </TableHeader>
 
@@ -137,10 +136,6 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
 
                                 <TableCell className="text-neutral-200">
                                     {toPct(d.normalised_placement)}
-                                </TableCell>
-
-                                <TableCell className="text-neutral-200">
-                                    {d.max_players}
                                 </TableCell>
 
                                 <TableCell className="text-right">

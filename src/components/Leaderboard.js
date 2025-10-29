@@ -133,8 +133,14 @@ const Leaderboard = ({
                                     <TableCell>
                                         <div className="text-center">
                                             <p className="text-sm font-medium">
-                                                {((card.delta * 100).toFixed(2) * -1) >= 0 ? '+' : ''}
-                                                {(card.delta * 100).toFixed(2) * -1}%
+                                                {(card.delta * 100).toFixed(2) *
+                                                    -1 >=
+                                                0
+                                                    ? "+"
+                                                    : ""}
+                                                {(card.delta * 100).toFixed(2) *
+                                                    -1}
+                                                %
                                             </p>
                                             <p className="text-xs text-gray-500">
                                                 ±{(card.CI * 100).toFixed(2)}%

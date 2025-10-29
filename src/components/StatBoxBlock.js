@@ -6,7 +6,7 @@ export default function StatBoxBlock({
     block4stats,
 }) {
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-0">
+        <div className="flex flex-wrap gap-3 justify-center">
             <StatBox
                 topLabel="All Time"
                 value={(block1stats.delta * 100).toFixed(2) * -1 + "%"}

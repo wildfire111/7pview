@@ -20,6 +20,5 @@ export {
 // Leaderboard queries
 export { getLeaderboardCardData } from "./leaderboard-queries.js";
 
-// Legacy compatibility exports (to be removed gradually)
 export { getCardIdByName as getCardIDByName } from "./card-operations.js";
 export { getDecksWithCardFilter as getDecksIncludingExcluding } from "./deck-operations.js";

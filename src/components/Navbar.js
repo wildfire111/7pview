@@ -34,16 +34,47 @@ export default function NavigationBar() {
                 </Link>
             </NavbarBrand>
 
-            <NavbarContent justify="end">
+            <NavbarContent
+                className="hidden sm:flex gap-4 items-center"
+                justify="center"
+            >
                 <NavbarItem>
-                    <CardSearchInput onSubmit={handleSubmit} />
+                    <Link
+                        href="/"
+                        className="text-foreground hover:text-primary transition-colors font-medium"
+                    >
+                        Leaderboards
+                    </Link>
                 </NavbarItem>
+                <span className="text-foreground-400">|</span>
                 <NavbarItem>
+                    <Link
+                        href="/spoiler"
+                        className="text-foreground hover:text-primary transition-colors font-medium"
+                    >
+                        Visual Spoiler
+                    </Link>
+                </NavbarItem>
+                <span className="text-foreground-400">|</span>
+                <NavbarItem>
+                    <Link
+                        href="/about"
+                        className="text-foreground hover:text-primary transition-colors font-medium"
+                    >
+                        About
+                    </Link>
+                </NavbarItem>
+            </NavbarContent>
+
+            <NavbarContent justify="end">
+                <NavbarItem className="flex items-center gap-2">
+                    <CardSearchInput onSubmit={handleSubmit} />
                     <Button
                         as={Link}
                         href="/search"
                         color="secondary"
                         variant="flat"
+                        size="md"
                     >
                         Adv.
                     </Button>

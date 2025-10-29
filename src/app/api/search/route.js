@@ -25,25 +25,42 @@ export async function POST(req) {
         // Get card IDs for includes
         const includesIDs = await Promise.all(
             includes.map(async (cardName) => {
-                const result = await getCardIdByName(cardName);
-                return result.card_id;
+                try {
+                    const result = await getCardIdByName(cardName);
+                    return result.card_id;
+                } catch (error) {
+                    // Skip invalid card names
+                    return null;
+                }
             })
         );
 
         // Get card IDs for excludes
         const excludesIDs = await Promise.all(
             excludes.map(async (cardName) => {
-                const result = await getCardIdByName(cardName);
-                return result.card_id;
+                try {
+                    const result = await getCardIdByName(cardName);
+                    return result.card_id;
+                } catch (error) {
+                    // Skip invalid card names
+                    return null;
+                }
             })
         );
 
+        // Filter out null values from failed sanitisation
+        const validIncludesIDs = includesIDs.filter((id) => id !== null);
+        const validExcludesIDs = excludesIDs.filter((id) => id !== null);
+
         // Fetch deck data
         const incExcRows = await getDecksIncludingExcluding(
-            includesIDs,
-            excludesIDs
+            validIncludesIDs,
+            validExcludesIDs
         );
-        const invRows = await getDecksLogicalInverse(includesIDs, excludesIDs);
+        const invRows = await getDecksLogicalInverse(
+            validIncludesIDs,
+            validExcludesIDs
+        );
 
         return NextResponse.json({
             includes: incExcRows,

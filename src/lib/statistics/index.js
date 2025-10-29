@@ -24,7 +24,7 @@ export {
     createDateRangeForPeriod,
 } from "./date-filters.js";
 
-// Legacy compatibility exports (to be removed gradually)
+// Legacy compatibility exports
 export { calculateMeanAndConfidenceInterval as calcMeanAnd95CI } from "./confidence-intervals.js";
 export { calculatePerformanceDelta as calcCardArrayDelta } from "./performance-metrics.js";
 export { filterDecksByDateRange as filterDates } from "./date-filters.js";

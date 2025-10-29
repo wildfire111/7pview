@@ -79,7 +79,7 @@ export function createDateRangeForPeriod(period, referenceDate = new Date()) {
             break;
         case "all-time":
         default:
-            startDate = new Date("2020-01-01"); // Adjust based on your data
+            startDate = new Date("2020-01-01");
             break;
     }
 
