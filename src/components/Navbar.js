@@ -1,10 +1,14 @@
 "use client";
 
+import React from "react";
 import {
     Navbar,
     NavbarBrand,
     NavbarContent,
     NavbarItem,
+    NavbarMenu,
+    NavbarMenuItem,
+    NavbarMenuToggle,
     Button,
 } from "@heroui/react";
 import Link from "next/link";
@@ -13,6 +17,7 @@ import CardSearchInput from "@/components/CardSearchInput";
 
 export default function NavigationBar() {
     const router = useRouter();
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const handleSubmit = (name) => {
         router.push(`/card/${encodeURIComponent(name)}`);
@@ -21,11 +26,21 @@ export default function NavigationBar() {
     return (
         <Navbar
             isBlurred
-            maxWidth="lg"
+            maxWidth="full"
             position="sticky"
-            className="bg-content1/70 backdrop-blur border-b border-divider text-foreground"
+            isMenuOpen={isMenuOpen}
+            onMenuOpenChange={setIsMenuOpen}
+            className="top-0 left-0 w-full bg-content1/70 backdrop-blur border-b border-divider z-50 px-0"
         >
-            <NavbarBrand>
+            {/* Hamburger: visible below md */}
+            <NavbarContent className="md:hidden" justify="start">
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                />
+            </NavbarContent>
+
+            {/* Brand */}
+            <NavbarBrand className="ml-0 mr-auto md:mr-0">
                 <Link
                     href="/"
                     className="flex items-center gap-2 font-semibold text-foreground"
@@ -34,8 +49,9 @@ export default function NavigationBar() {
                 </Link>
             </NavbarBrand>
 
+            {/* Center menu for md+ */}
             <NavbarContent
-                className="hidden sm:flex gap-4 items-center"
+                className="hidden md:flex gap-4 items-center"
                 justify="center"
             >
                 <NavbarItem>
@@ -66,7 +82,8 @@ export default function NavigationBar() {
                 </NavbarItem>
             </NavbarContent>
 
-            <NavbarContent justify="end">
+            {/* Right side: search + button */}
+            <NavbarContent justify="end" className="md:justify-end">
                 <NavbarItem className="flex items-center gap-2">
                     <CardSearchInput onSubmit={handleSubmit} />
                     <Button
@@ -80,6 +97,37 @@ export default function NavigationBar() {
                     </Button>
                 </NavbarItem>
             </NavbarContent>
+
+            {/* Mobile menu panel */}
+            <NavbarMenu>
+                <NavbarMenuItem>
+                    <Link
+                        href="/"
+                        className="w-full py-2 text-foreground hover:text-primary"
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                        Leaderboards
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                    <Link
+                        href="/spoiler"
+                        className="w-full py-2 text-foreground hover:text-primary"
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                        Visual Spoiler
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                    <Link
+                        href="/about"
+                        className="w-full py-2 text-foreground hover:text-primary"
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                        About
+                    </Link>
+                </NavbarMenuItem>
+            </NavbarMenu>
         </Navbar>
     );
 }
