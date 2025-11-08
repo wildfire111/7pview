@@ -115,8 +115,10 @@ export default function ResultsDisplay({
 
     return (
         <main>
-            <div className="mb-4">
-                <h1 className="text-2xl font-bold mb-2">{rawName}</h1>
+            <div className="mb-4 flex flex-col items-center">
+                <h1 className="text-2xl font-bold mb-2 text-center">
+                    {rawName}
+                </h1>
                 <StatBoxBlock
                     block1stats={block1stats}
                     block2stats={block2stats}
@@ -124,12 +126,14 @@ export default function ResultsDisplay({
                     block4stats={block4stats}
                 />
             </div>
-            <DateControls
-                initialStartISO={toISO(earliest)}
-                initialEndISO={toISO(latest)}
-                minISO={toISO(earliest)}
-                maxISO={toISO(latest)}
-            />
+            <div className="flex justify-center mb-4">
+                <DateControls
+                    initialStartISO={toISO(earliest)}
+                    initialEndISO={toISO(latest)}
+                    minISO={toISO(earliest)}
+                    maxISO={toISO(latest)}
+                />
+            </div>
             <DeckTable
                 rows={paginatedRows}
                 page={page}

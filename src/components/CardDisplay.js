@@ -6,16 +6,14 @@ export default function CardDisplay({ card, children }) {
         <div className="flex min-h-screen gap-6">
             <aside className="sticky top-0 h-screen w-80 shrink-0 hidden md:block">
                 <div className="py-4">
-                    <h1 className="mb-3 text-xl font-bold">{front.title}</h1>
-
                     {front.url ? (
                         <img
                             src={front.url}
                             alt={front.title}
-                            className="w-full h-auto rounded-2xl  shadow"
+                            className="w-full h-auto rounded-3xl  shadow"
                         />
                     ) : (
-                        <div className="grid h-64 place-items-center rounded-lg bg-primary-800 text-primary-300">
+                        <div className="grid h-64 place-items-center rounded-3xl bg-primary-800 text-primary-300">
                             No image available
                         </div>
                     )}

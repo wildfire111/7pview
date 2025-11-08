@@ -31,51 +31,87 @@ export default function NavigationBar() {
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
             className="top-0 left-0 w-full bg-content1/70 backdrop-blur border-b border-divider z-50 px-0"
+            style={{
+                backgroundImage: 'url("/navbarbg.png")',
+                backgroundSize: "auto 100%",
+                backgroundRepeat: "repeat-x",
+                backgroundPosition: "left center",
+            }}
         >
-            {/* Hamburger: visible below md */}
-            <NavbarContent className="md:hidden" justify="start">
+            {/* Hamburger: visible on sm and md */}
+            <NavbarContent className="lg:hidden" justify="start">
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="text-black"
                 />
             </NavbarContent>
 
-            {/* Brand */}
-            <NavbarBrand className="ml-0 mr-auto md:mr-0">
-                <Link
-                    href="/"
-                    className="flex items-center gap-2 font-semibold text-foreground"
-                >
-                    <span>Thoughtcast</span>
+            {/* Brand - visible on md+ */}
+            <NavbarBrand className="hidden lg:flex ml-0 mr-auto">
+                <Link href="/" className="flex items-center gap-2 h-full">
+                    <img
+                        src="/thoughtcast-logo.png"
+                        alt="Thoughtcast"
+                        className="h-full w-auto py-2"
+                    />
                 </Link>
             </NavbarBrand>
 
-            {/* Center menu for md+ */}
+            {/* Center menu for lg+ */}
             <NavbarContent
-                className="hidden md:flex gap-4 items-center"
+                className="hidden lg:flex gap-4 items-center"
                 justify="center"
             >
                 <NavbarItem>
                     <Link
                         href="/"
-                        className="text-foreground hover:text-primary transition-colors font-medium"
+                        className="text-black hover:text-gray-700 transition-colors font-medium"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
                     >
                         Leaderboards
                     </Link>
                 </NavbarItem>
-                <span className="text-foreground-400">|</span>
+                <span
+                    className="text-black"
+                    style={{
+                        textShadow:
+                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                    }}
+                >
+                    |
+                </span>
                 <NavbarItem>
                     <Link
                         href="/spoiler"
-                        className="text-foreground hover:text-primary transition-colors font-medium"
+                        className="text-black hover:text-gray-700 transition-colors font-medium"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
                     >
                         Visual Spoiler
                     </Link>
                 </NavbarItem>
-                <span className="text-foreground-400">|</span>
+                <span
+                    className="text-black"
+                    style={{
+                        textShadow:
+                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                    }}
+                >
+                    |
+                </span>
                 <NavbarItem>
                     <Link
                         href="/about"
-                        className="text-foreground hover:text-primary transition-colors font-medium"
+                        className="text-black hover:text-gray-700 transition-colors font-medium"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
                     >
                         About
                     </Link>
@@ -83,7 +119,7 @@ export default function NavigationBar() {
             </NavbarContent>
 
             {/* Right side: search + button */}
-            <NavbarContent justify="end" className="md:justify-end">
+            <NavbarContent justify="end" className="lg:justify-end">
                 <NavbarItem className="flex items-center gap-2">
                     <CardSearchInput onSubmit={handleSubmit} />
                     <Button
@@ -92,6 +128,13 @@ export default function NavigationBar() {
                         color="secondary"
                         variant="flat"
                         size="md"
+                        className="text-black font-medium"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                            backgroundColor: "rgba(255, 255, 255, 0.8)",
+                            border: "1px solid rgba(0, 0, 0, 0.2)",
+                        }}
                     >
                         Adv.
                     </Button>
@@ -103,7 +146,11 @@ export default function NavigationBar() {
                 <NavbarMenuItem>
                     <Link
                         href="/"
-                        className="w-full py-2 text-foreground hover:text-primary"
+                        className="w-full py-2 text-black hover:text-gray-700"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Leaderboards
@@ -112,7 +159,11 @@ export default function NavigationBar() {
                 <NavbarMenuItem>
                     <Link
                         href="/spoiler"
-                        className="w-full py-2 text-foreground hover:text-primary"
+                        className="w-full py-2 text-black hover:text-gray-700"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Visual Spoiler
@@ -121,7 +172,11 @@ export default function NavigationBar() {
                 <NavbarMenuItem>
                     <Link
                         href="/about"
-                        className="w-full py-2 text-foreground hover:text-primary"
+                        className="w-full py-2 text-black hover:text-gray-700"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
                         onClick={() => setIsMenuOpen(false)}
                     >
                         About

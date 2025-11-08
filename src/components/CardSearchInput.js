@@ -116,8 +116,16 @@ export default function CardSearchInput({
                 <Button
                     color="secondary"
                     variant="flat"
+                    size="md"
                     isLoading={isResolving}
                     onPress={() => resolveAndSubmit(query)}
+                    className="text-black font-medium"
+                    style={{
+                        textShadow:
+                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        border: "1px solid rgba(0, 0, 0, 0.2)",
+                    }}
                 >
                     Search
                 </Button>
