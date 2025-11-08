@@ -21,7 +21,7 @@ export default async function Layout({ children, params }) {
     return (
         <div className="flex min-h-screen gap-6">
             <CardDisplay card={card} />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 w-full md:w-auto">{children}</main>
         </div>
     );
 }

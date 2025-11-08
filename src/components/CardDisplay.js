@@ -4,7 +4,7 @@ export default function CardDisplay({ card, children }) {
 
     return (
         <div className="flex min-h-screen gap-6">
-            <aside className="sticky top-0 h-screen w-80 shrink-0">
+            <aside className="sticky top-0 h-screen w-80 shrink-0 hidden md:block">
                 <div className="py-4">
                     <h1 className="mb-3 text-xl font-bold">{front.title}</h1>
 

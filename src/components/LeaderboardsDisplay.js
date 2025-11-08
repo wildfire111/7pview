@@ -13,7 +13,7 @@ const LeaderboardsDisplay = ({ leaderboardData, error }) => {
                     <CardHeader>
                         <div>
                             <h2 className="text-2xl font-bold">
-                                Pointed Card Leaderboards
+                                Best Performing Pointed Cards
                             </h2>
                         </div>
                     </CardHeader>

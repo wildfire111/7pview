@@ -13,7 +13,9 @@ import {
     TableRow,
     TableCell,
     Skeleton,
+    Tooltip,
 } from "@heroui/react";
+import { Info } from "lucide-react";
 
 const Leaderboard = ({
     title,
@@ -105,7 +107,47 @@ const Leaderboard = ({
                         <TableColumn className="w-12">#</TableColumn>
                         <TableColumn>CARD</TableColumn>
                         <TableColumn className="w-24 text-center">
-                            DELTA
+                            <div className="flex items-center justify-center gap-1">
+                                DELTA
+                                <Tooltip
+                                    content={
+                                        <div className="px-1 py-2 max-w-xs">
+                                            <div className="text-small font-bold">
+                                                Delta:
+                                            </div>
+                                            <div className="text-tiny">
+                                                Delta represents the difference
+                                                in placing in percentage between
+                                                all decks containing this card
+                                                versus all the decks that don't
+                                                contain it. Positive values
+                                                indicate the card performs
+                                                better than average. Find out
+                                                more at{" "}
+                                                <Link
+                                                    href="/about"
+                                                    className="text-blue-300 hover:underline"
+                                                >
+                                                    the About page
+                                                </Link>
+                                                .
+                                            </div>
+                                        </div>
+                                    }
+                                    placement="top"
+                                    delay={0}
+                                    closeDelay={0}
+                                    classNames={{
+                                        base: "py-2 px-3 shadow-xl text-white bg-neutral-800 border border-neutral-700 rounded-lg",
+                                        arrow: "bg-neutral-800",
+                                    }}
+                                >
+                                    <Info
+                                        size={12}
+                                        className="text-default-400 hover:text-default-600 cursor-help"
+                                    />
+                                </Tooltip>
+                            </div>
                         </TableColumn>
                     </TableHeader>
                     <TableBody>

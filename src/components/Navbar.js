@@ -30,7 +30,7 @@ export default function NavigationBar() {
                     href="/"
                     className="flex items-center gap-2 font-semibold text-foreground"
                 >
-                    <span>7PView</span>
+                    <span>Thoughtca.st</span>
                 </Link>
             </NavbarBrand>
 
