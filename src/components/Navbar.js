@@ -85,14 +85,14 @@ export default function NavigationBar() {
                 </span>
                 <NavbarItem>
                     <Link
-                        href="/spoiler"
+                        href="/visualpoints"
                         className="text-black hover:text-gray-700 transition-colors font-medium"
                         style={{
                             textShadow:
                                 "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
                         }}
                     >
-                        Visual Spoiler
+                        Visual Points
                     </Link>
                 </NavbarItem>
                 <span

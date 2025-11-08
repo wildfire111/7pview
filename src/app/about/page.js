@@ -7,7 +7,7 @@ export default function AboutPage() {
     return (
         <div className="container mx-auto p-6 max-w-4xl">
             <div className="mb-8">
-                <h1 className="text-4xl font-bold mb-4">About 7PView</h1>
+                <h1 className="text-4xl font-bold mb-4">About Thoughtca.st</h1>
                 <p className="text-lg text-foreground-600">
                     Understanding Australian Highlander performance statistics
                     and methodology
@@ -18,12 +18,12 @@ export default function AboutPage() {
                 <Card>
                     <CardHeader>
                         <h2 className="text-2xl font-semibold">
-                            What is 7PView?
+                            What is Thoughtca.st?
                         </h2>
                     </CardHeader>
                     <CardBody className="space-y-4">
                         <p>
-                            7PView is a statistical analysis platform for
+                            Thoughtca.st is a statistical analysis platform for
                             Australian Highlander, a 60 card singleton Magic:
                             The Gathering format. We track deck performance data
                             and provide insights into how individual cards

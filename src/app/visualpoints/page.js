@@ -102,7 +102,7 @@ export default function SpoilerPage() {
                 <Card className="border-danger">
                     <CardBody>
                         <p className="text-danger">
-                            Error loading spoiler: {error}
+                            Error loading points: {error}
                         </p>
                     </CardBody>
                 </Card>
@@ -118,9 +118,7 @@ export default function SpoilerPage() {
         <div className="container mx-auto p-6 max-w-6xl">
             <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                    <h1 className="text-3xl font-bold">
-                        Visual Points Spoiler
-                    </h1>
+                    <h1 className="text-3xl font-bold">Visual Points</h1>
                     <Button
                         color="primary"
                         variant="flat"
