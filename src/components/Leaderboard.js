@@ -119,11 +119,11 @@ const Leaderboard = ({
                                                 Delta represents the difference
                                                 in placing in percentage between
                                                 all decks containing this card
-                                                versus all the decks that don't
-                                                contain it. Positive values
-                                                indicate the card performs
-                                                better than average. Find out
-                                                more at{" "}
+                                                versus all the decks that
+                                                don&apos;t contain it. Positive
+                                                values indicate the card
+                                                performs better than average.
+                                                Find out more at{" "}
                                                 <Link
                                                     href="/about"
                                                     className="text-blue-300 hover:underline"
