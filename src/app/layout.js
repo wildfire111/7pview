@@ -3,8 +3,8 @@ import NavigationBar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-    title: "7PView",
-    description: "7PView",
+    title: "Thoughtcast",
+    description: "7 Point Highlander Tournament Analytics",
 };
 
 export default function RootLayout({ children }) {

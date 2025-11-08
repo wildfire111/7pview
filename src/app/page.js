@@ -19,7 +19,7 @@ export default async function HomePage() {
             <section className="px-6 py-8">
                 <div className="max-w-7xl mx-auto text-center">
                     <h1 className="text-4xl lg:text-6xl font-bold tracking-tight mb-4">
-                        Thoughtca.st
+                        Thoughtcast
                     </h1>
                     <p className="text-lg text-gray-600 dark:text-gray-300">
                         7 Point Highlander Tournament Analytics

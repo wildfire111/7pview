@@ -30,7 +30,7 @@ export default function NavigationBar() {
                     href="/"
                     className="flex items-center gap-2 font-semibold text-foreground"
                 >
-                    <span>Thoughtca.st</span>
+                    <span>Thoughtcast</span>
                 </Link>
             </NavbarBrand>
 
