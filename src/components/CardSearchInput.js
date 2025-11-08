@@ -7,7 +7,7 @@ export default function CardSearchInput({
     value = "",
     onChange, // (v: string) => void
     onSubmit, // (v: string) => void (optional)
-    className = "w-72 md:w-96",
+    className = "w-48 md:w-96",
     debounceMs = 250,
     hideButton = false,
 }) {

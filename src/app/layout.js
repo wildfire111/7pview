@@ -3,7 +3,7 @@ import NavigationBar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-    title: "Thoughtcast",
+    title: "Thoughtca.st",
     description: "7 Point Highlander Tournament Analytics",
 };
 

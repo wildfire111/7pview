@@ -120,7 +120,7 @@ export default function NavigationBar() {
 
             {/* Right side: search + button */}
             <NavbarContent justify="end" className="lg:justify-end">
-                <NavbarItem className="flex items-center gap-2">
+                <NavbarItem className="flex items-center gap-5 sm:gap-3 md:gap-2">
                     <CardSearchInput onSubmit={handleSubmit} />
                     <Button
                         as={Link}
