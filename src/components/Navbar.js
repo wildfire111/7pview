@@ -40,32 +40,32 @@ export default function NavigationBar() {
         >
             {/* Hamburger: visible on sm and md */}
             <NavbarContent
-                className="lg:hidden border-2 border-red-500 w-auto"
+                className="lg:hidden w-auto"
                 justify="start"
             >
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    className="text-black border-2 border-yellow-500"
+                    className="text-black"
                 />
             </NavbarContent>
 
             {/* Brand - visible on md+ */}
-            <NavbarBrand className="hidden md:flex flex-none ml-0 mr-auto border-2 border-blue-500">
+            <NavbarBrand className="hidden md:flex flex-none ml-0 mr-auto">
                 <Link
                     href="/"
-                    className="flex items-center gap-2 h-full border-2 border-green-500"
+                    className="flex items-center gap-2 h-full"
                 >
                     <img
                         src="/thoughtcast-logo.png"
                         alt="Thoughtcast"
-                        className="h-full w-auto py-2 border-2 border-purple-500"
+                        className="h-full w-auto py-2"
                     />
                 </Link>
             </NavbarBrand>
 
             {/* Center menu for lg+ */}
             <NavbarContent
-                className="hidden lg:flex gap-4 items-center border-2 border-orange-500"
+                className="hidden lg:flex gap-4 items-center"
                 justify="center"
             >
                 <NavbarItem>
@@ -112,6 +112,27 @@ export default function NavigationBar() {
                 </span>
                 <NavbarItem>
                     <Link
+                        href="/events"
+                        className="text-black hover:text-gray-700 transition-colors font-medium"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
+                    >
+                        Events
+                    </Link>
+                </NavbarItem>
+                <span
+                    className="text-black"
+                    style={{
+                        textShadow:
+                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                    }}
+                >
+                    |
+                </span>
+                <NavbarItem>
+                    <Link
                         href="/about"
                         className="text-black hover:text-gray-700 transition-colors font-medium"
                         style={{
@@ -127,9 +148,9 @@ export default function NavigationBar() {
             {/* Right side: search + button */}
             <NavbarContent
                 justify="end"
-                className="lg:justify-end border-2 border-pink-500"
+                className="lg:justify-end"
             >
-                <NavbarItem className="border-2 border-cyan-500">
+                <NavbarItem>
                     <CardSearchInput
                         onSubmit={handleSubmit}
                         showAdvButton={true}
@@ -176,6 +197,19 @@ export default function NavigationBar() {
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Visual Points
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                    <Link
+                        href="/events"
+                        className="w-full py-2 text-black hover:text-gray-700"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                        Events
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem>
