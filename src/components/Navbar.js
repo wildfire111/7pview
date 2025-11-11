@@ -39,27 +39,33 @@ export default function NavigationBar() {
             }}
         >
             {/* Hamburger: visible on sm and md */}
-            <NavbarContent className="lg:hidden" justify="start">
+            <NavbarContent
+                className="lg:hidden border-2 border-red-500 w-auto"
+                justify="start"
+            >
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    className="text-black"
+                    className="text-black border-2 border-yellow-500"
                 />
             </NavbarContent>
 
             {/* Brand - visible on md+ */}
-            <NavbarBrand className="hidden lg:flex ml-0 mr-auto">
-                <Link href="/" className="flex items-center gap-2 h-full">
+            <NavbarBrand className="hidden md:flex flex-none ml-0 mr-auto border-2 border-blue-500">
+                <Link
+                    href="/"
+                    className="flex items-center gap-2 h-full border-2 border-green-500"
+                >
                     <img
                         src="/thoughtcast-logo.png"
                         alt="Thoughtcast"
-                        className="h-full w-auto py-2"
+                        className="h-full w-auto py-2 border-2 border-purple-500"
                     />
                 </Link>
             </NavbarBrand>
 
             {/* Center menu for lg+ */}
             <NavbarContent
-                className="hidden lg:flex gap-4 items-center"
+                className="hidden lg:flex gap-4 items-center border-2 border-orange-500"
                 justify="center"
             >
                 <NavbarItem>
@@ -119,25 +125,15 @@ export default function NavigationBar() {
             </NavbarContent>
 
             {/* Right side: search + button */}
-            <NavbarContent justify="end" className="lg:justify-end">
-                <NavbarItem className="flex items-center gap-5 sm:gap-3 md:gap-2">
-                    <CardSearchInput onSubmit={handleSubmit} />
-                    <Button
-                        as={Link}
-                        href="/search"
-                        color="secondary"
-                        variant="flat"
-                        size="md"
-                        className="text-black font-medium"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                            backgroundColor: "rgba(255, 255, 255, 0.8)",
-                            border: "1px solid rgba(0, 0, 0, 0.2)",
-                        }}
-                    >
-                        Adv.
-                    </Button>
+            <NavbarContent
+                justify="end"
+                className="lg:justify-end border-2 border-pink-500"
+            >
+                <NavbarItem className="border-2 border-cyan-500">
+                    <CardSearchInput
+                        onSubmit={handleSubmit}
+                        showAdvButton={true}
+                    />
                 </NavbarItem>
             </NavbarContent>
 
@@ -153,12 +149,12 @@ export default function NavigationBar() {
                         }}
                         onClick={() => setIsMenuOpen(false)}
                     >
-                        Leaderboards
+                        Home
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem>
                     <Link
-                        href="/spoiler"
+                        href="/search"
                         className="w-full py-2 text-black hover:text-gray-700"
                         style={{
                             textShadow:
@@ -166,7 +162,20 @@ export default function NavigationBar() {
                         }}
                         onClick={() => setIsMenuOpen(false)}
                     >
-                        Visual Spoiler
+                        Advanced Search
+                    </Link>
+                </NavbarMenuItem>
+                <NavbarMenuItem>
+                    <Link
+                        href="/visualpoints"
+                        className="w-full py-2 text-black hover:text-gray-700"
+                        style={{
+                            textShadow:
+                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        }}
+                        onClick={() => setIsMenuOpen(false)}
+                    >
+                        Visual Points
                     </Link>
                 </NavbarMenuItem>
                 <NavbarMenuItem>

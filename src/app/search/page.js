@@ -157,10 +157,10 @@ function SearchPage() {
     // If no params provided, show the search interface
     if (currentIncludes.length === 0 && currentExcludes.length === 0) {
         return (
-            <div className="flex min-h-screen gap-6">
-                <aside className="sticky top-0 h-screen w-120 shrink-0 border-r border-white/20">
+            <div className="flex flex-col lg:flex-row min-h-screen gap-6">
+                <aside className="w-full lg:sticky lg:top-0 lg:h-screen lg:w-120 lg:shrink-0 border-b lg:border-r lg:border-b-0 border-white/20">
                     <div className="py-4">
-                        <div className="p-6 space-y-4">
+                        <div className="p-4 lg:p-6 space-y-4">
                             <h1 className="text-xl font-semibold">
                                 Advanced Search
                             </h1>
@@ -231,8 +231,13 @@ function SearchPage() {
                 <main className="flex-1 py-4 overflow-auto">
                     <div className="p-4 text-neutral-300">
                         <p>
-                            Use the search form on the left to find decks that
-                            include or exclude specific cards.
+                            Use the search form{" "}
+                            <span className="lg:hidden">above</span>
+                            <span className="hidden lg:inline">
+                                on the left
+                            </span>{" "}
+                            to find decks that include or exclude specific
+                            cards.
                         </p>
                     </div>
                 </main>
@@ -241,10 +246,10 @@ function SearchPage() {
     }
 
     return (
-        <div className="flex min-h-screen gap-6">
-            <aside className="sticky top-0 h-screen w-120 shrink-0 border-r border-white/20">
+        <div className="flex flex-col lg:flex-row min-h-screen gap-6">
+            <aside className="w-full lg:sticky lg:top-0 lg:h-screen lg:w-120 lg:shrink-0 border-b lg:border-r lg:border-b-0 border-white/20">
                 <div className="py-4">
-                    <div className="p-6 space-y-4">
+                    <div className="p-4 lg:p-6 space-y-4">
                         <h1 className="text-xl font-semibold">
                             Advanced Search
                         </h1>

@@ -2,14 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { Autocomplete, AutocompleteItem, Button } from "@heroui/react";
+import Link from "next/link";
 
 export default function CardSearchInput({
     value = "",
     onChange, // (v: string) => void
     onSubmit, // (v: string) => void (optional)
-    className = "w-48 md:w-96",
+    className = "w-72 md:w-96",
     debounceMs = 250,
     hideButton = false,
+    showAdvButton = false,
+    onAdvClick, // () => void (optional)
 }) {
     const [query, setQuery] = useState(value ?? "");
     const [debounced, setDebounced] = useState("");
@@ -128,6 +131,25 @@ export default function CardSearchInput({
                     }}
                 >
                     Search
+                </Button>
+            )}
+
+            {showAdvButton && (
+                <Button
+                    as={Link}
+                    href="/search"
+                    color="secondary"
+                    variant="flat"
+                    size="md"
+                    className="text-black font-medium hidden md:inline-flex"
+                    style={{
+                        textShadow:
+                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+                        backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        border: "1px solid rgba(0, 0, 0, 0.2)",
+                    }}
+                >
+                    Adv.
                 </Button>
             )}
         </div>
