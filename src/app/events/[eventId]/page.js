@@ -274,7 +274,8 @@ export default function EventDetailPage() {
                                 No Decks Found
                             </h3>
                             <p className="text-neutral-500">
-                                This event doesn't have any deck data available.
+                                This event doesn&apos;t have any deck data
+                                available.
                             </p>
                         </div>
                     </CardBody>
