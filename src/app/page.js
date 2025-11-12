@@ -2,7 +2,6 @@ import { fetchLeaderboardData } from "@/lib/services";
 import LeaderboardsDisplay from "@/components/LeaderboardsDisplay";
 
 export default async function HomePage() {
-    // Fetch leaderboard data server-side
     let leaderboardData = null;
     let error = null;
 
@@ -15,7 +14,6 @@ export default async function HomePage() {
 
     return (
         <main className="min-h-screen">
-            {/* Simple Header */}
             <section className="px-6 py-8">
                 <div className="max-w-7xl mx-auto text-center">
                     <h1 className="text-4xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -27,7 +25,6 @@ export default async function HomePage() {
                 </div>
             </section>
 
-            {/* Leaderboards */}
             <section className="px-6 pb-16">
                 <div className="max-w-7xl mx-auto">
                     <LeaderboardsDisplay

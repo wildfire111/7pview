@@ -23,6 +23,12 @@ export default function NavigationBar() {
         router.push(`/card/${encodeURIComponent(name)}`);
     };
 
+    // Text shadow styling for contrast on background image
+    const textShadowStyle = {
+        textShadow:
+            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+    };
+
     return (
         <Navbar
             isBlurred
@@ -38,23 +44,15 @@ export default function NavigationBar() {
                 backgroundPosition: "left center",
             }}
         >
-            {/* Hamburger: visible on sm and md */}
-            <NavbarContent
-                className="lg:hidden w-auto"
-                justify="start"
-            >
+            <NavbarContent className="lg:hidden w-auto" justify="start">
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                     className="text-black"
                 />
             </NavbarContent>
 
-            {/* Brand - visible on md+ */}
             <NavbarBrand className="hidden md:flex flex-none ml-0 mr-auto">
-                <Link
-                    href="/"
-                    className="flex items-center gap-2 h-full"
-                >
+                <Link href="/" className="flex items-center gap-2 h-full">
                     <img
                         src="/thoughtcast-logo.png"
                         alt="Thoughtcast"
@@ -63,7 +61,6 @@ export default function NavigationBar() {
                 </Link>
             </NavbarBrand>
 
-            {/* Center menu for lg+ */}
             <NavbarContent
                 className="hidden lg:flex gap-4 items-center"
                 justify="center"
@@ -72,84 +69,50 @@ export default function NavigationBar() {
                     <Link
                         href="/"
                         className="text-black hover:text-gray-700 transition-colors font-medium"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        style={textShadowStyle}
                     >
                         Leaderboards
                     </Link>
                 </NavbarItem>
-                <span
-                    className="text-black"
-                    style={{
-                        textShadow:
-                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                    }}
-                >
+                <span className="text-black" style={textShadowStyle}>
                     |
                 </span>
                 <NavbarItem>
                     <Link
                         href="/visualpoints"
                         className="text-black hover:text-gray-700 transition-colors font-medium"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        style={textShadowStyle}
                     >
                         Visual Points
                     </Link>
                 </NavbarItem>
-                <span
-                    className="text-black"
-                    style={{
-                        textShadow:
-                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                    }}
-                >
+                <span className="text-black" style={textShadowStyle}>
                     |
                 </span>
                 <NavbarItem>
                     <Link
                         href="/events"
                         className="text-black hover:text-gray-700 transition-colors font-medium"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        style={textShadowStyle}
                     >
                         Events
                     </Link>
                 </NavbarItem>
-                <span
-                    className="text-black"
-                    style={{
-                        textShadow:
-                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                    }}
-                >
+                <span className="text-black" style={textShadowStyle}>
                     |
                 </span>
                 <NavbarItem>
                     <Link
                         href="/about"
                         className="text-black hover:text-gray-700 transition-colors font-medium"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        style={textShadowStyle}
                     >
                         About
                     </Link>
                 </NavbarItem>
             </NavbarContent>
 
-            {/* Right side: search + button */}
-            <NavbarContent
-                justify="end"
-                className="lg:justify-end"
-            >
+            <NavbarContent justify="end" className="lg:justify-end">
                 <NavbarItem>
                     <CardSearchInput
                         onSubmit={handleSubmit}
@@ -158,55 +121,38 @@ export default function NavigationBar() {
                 </NavbarItem>
             </NavbarContent>
 
-            {/* Mobile menu panel */}
-            <NavbarMenu>
-                <NavbarMenuItem>
+            <NavbarMenu className="w-48 max-w-xs h-auto max-h-80 overflow-y-auto">
+                <NavbarMenuItem className="border-b border-gray-300">
                     <Link
                         href="/"
-                        className="w-full py-2 text-black hover:text-gray-700"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        className="w-full py-2 text-white hover:text-gray-300"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Home
                     </Link>
                 </NavbarMenuItem>
-                <NavbarMenuItem>
+                <NavbarMenuItem className="border-b border-gray-300">
                     <Link
                         href="/search"
-                        className="w-full py-2 text-black hover:text-gray-700"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        className="w-full py-2 text-white hover:text-gray-300"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Advanced Search
                     </Link>
                 </NavbarMenuItem>
-                <NavbarMenuItem>
+                <NavbarMenuItem className="border-b border-gray-300">
                     <Link
                         href="/visualpoints"
-                        className="w-full py-2 text-black hover:text-gray-700"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        className="w-full py-2 text-white hover:text-gray-300"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Visual Points
                     </Link>
                 </NavbarMenuItem>
-                <NavbarMenuItem>
+                <NavbarMenuItem className="border-b border-gray-300">
                     <Link
                         href="/events"
-                        className="w-full py-2 text-black hover:text-gray-700"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        className="w-full py-2 text-white hover:text-gray-300"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         Events
@@ -215,11 +161,7 @@ export default function NavigationBar() {
                 <NavbarMenuItem>
                     <Link
                         href="/about"
-                        className="w-full py-2 text-black hover:text-gray-700"
-                        style={{
-                            textShadow:
-                                "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        }}
+                        className="w-full py-2 text-white hover:text-gray-300"
                         onClick={() => setIsMenuOpen(false)}
                     >
                         About

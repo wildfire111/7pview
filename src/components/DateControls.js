@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { DatePicker } from "@heroui/date-picker";
 import { parseDate } from "@internationalized/date";
 
-// CalendarDate -> "YYYY-MM-DD"
+// Convert CalendarDate to ISO string format (YYYY-MM-DD)
 const toISO = (cd) => {
     const y = cd.year;
     const m = String(cd.month).padStart(2, "0");
@@ -22,7 +22,6 @@ export default function DateControls({
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    // read from URL or fall back to initial bounds
     const startISO = searchParams.get("start") || initialStartISO;
     const endISO = searchParams.get("end") || initialEndISO;
 
@@ -33,7 +32,7 @@ export default function DateControls({
         const sp = new URLSearchParams(searchParams.toString());
         sp.set("start", nextStartISO);
         sp.set("end", nextEndISO);
-        sp.delete("page"); // reset pagination on range change
+        sp.delete("page"); // Reset pagination when date range changes
         router.push(`${pathname}?${sp.toString()}`);
     };
 

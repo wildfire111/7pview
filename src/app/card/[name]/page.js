@@ -8,6 +8,7 @@ import ResultsDisplay from "@/components/ResultsDisplay";
 
 export default async function Page({ params, searchParams }) {
     const { name } = await params;
+    const resolvedSearchParams = await searchParams;
 
     // Safely decode the card name
     let cardName;
@@ -44,7 +45,7 @@ export default async function Page({ params, searchParams }) {
             rawName={cardName}
             includes={includes}
             excludes={excludes}
-            searchParams={searchParams}
+            searchParams={resolvedSearchParams}
         />
     );
 }

@@ -45,14 +45,14 @@ export default function AboutPage() {
                         </h2>
                     </CardHeader>
                     <CardBody className="space-y-4">
-                        <p>
+                        <div>
                             The{" "}
                             <Chip color="primary" variant="flat" size="sm">
                                 Delta
                             </Chip>{" "}
                             value represents how much a card improves or hurts a
                             deck&apos;s win rate compared to the format average.
-                        </p>
+                        </div>
 
                         <div className="bg-content2 p-4 rounded-lg">
                             <h4 className="font-semibold mb-2">
@@ -114,10 +114,10 @@ export default function AboutPage() {
                             <p className="text-sm mb-3">
                                 We chose 80% confidence intervals (rather than
                                 the more common 95%) due to small sample sizes.
-                                This level balances providing useful insights
-                                while avoiding overly wide intervals that occur
-                                with higher confidence levels in limited data
-                                scenarios.
+                                This level balances providing (hopefully) useful
+                                insights while trying to avoid uselessly wide
+                                intervals that occur with higher confidence
+                                levels in limited data scenarios.
                             </p>
                         </div>
 
@@ -219,6 +219,28 @@ export default function AboutPage() {
                                 </a>
                             </p>
                         </div>
+                    </CardBody>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <h2 className="text-2xl font-semibold">
+                            Contributors:
+                        </h2>
+                    </CardHeader>
+                    <CardBody className="space-y-4">
+                        <p>Main contributor: Michael Leslie</p>
+                        <p>
+                            If you'd like to help contribute, come check out the
+                            repository at{" "}
+                            <a
+                                href="https://github.com/wildfire111/7pview"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-primary hover:underline"
+                            >
+                                github.com/wildfire111/7pview
+                            </a>
+                        </p>
                     </CardBody>
                 </Card>
             </div>

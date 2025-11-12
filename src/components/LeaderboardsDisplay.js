@@ -5,7 +5,6 @@ import { Card, CardBody, CardHeader } from "@heroui/react";
 import Leaderboard from "./Leaderboard";
 
 const LeaderboardsDisplay = ({ leaderboardData, error }) => {
-    // Error state
     if (error && !leaderboardData) {
         return (
             <div className="w-full">
@@ -32,7 +31,6 @@ const LeaderboardsDisplay = ({ leaderboardData, error }) => {
         );
     }
 
-    // No data state
     if (!leaderboardData) {
         return (
             <div className="w-full">
@@ -57,14 +55,12 @@ const LeaderboardsDisplay = ({ leaderboardData, error }) => {
 
     return (
         <div className="w-full space-y-6">
-            {/* Header */}
             <div className="text-center">
                 <h2 className="text-2xl font-bold">
                     Pointed Card Leaderboards
                 </h2>
             </div>
 
-            {/* Main leaderboards grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <Leaderboard
                     title="All Time"

@@ -6,13 +6,13 @@ import Link from "next/link";
 
 export default function CardSearchInput({
     value = "",
-    onChange, // (v: string) => void
-    onSubmit, // (v: string) => void (optional)
+    onChange,
+    onSubmit,
     className = "w-72 md:w-96",
     debounceMs = 250,
     hideButton = false,
     showAdvButton = false,
-    onAdvClick, // () => void (optional)
+    onAdvClick,
 }) {
     const [query, setQuery] = useState(value ?? "");
     const [debounced, setDebounced] = useState("");
@@ -20,12 +20,11 @@ export default function CardSearchInput({
     const [isSuggestLoading, setIsSuggestLoading] = useState(false);
     const [isResolving, setIsResolving] = useState(false);
 
-    // keep internal state in sync when parent updates `value`
     useEffect(() => {
         setQuery(value ?? "");
     }, [value]);
 
-    // debounce input for API calls
+    // Debounce input to avoid excessive API calls
     useEffect(() => {
         const t = setTimeout(
             () => setDebounced((query || "").trim()),
@@ -34,7 +33,7 @@ export default function CardSearchInput({
         return () => clearTimeout(t);
     }, [query, debounceMs]);
 
-    // fetch Scryfall suggestions on debounced value
+    // Fetch card name suggestions from Scryfall API
     useEffect(() => {
         if (!debounced) {
             setSuggestions([]);
@@ -53,7 +52,6 @@ export default function CardSearchInput({
                 );
                 const j = await r.json();
                 const names = Array.isArray(j?.data) ? j.data.slice(0, 20) : [];
-                // Autocomplete expects items; each needs a stable key
                 setSuggestions(names.map((n) => ({ id: n, label: n })));
             } catch (err) {
                 if (err?.name !== "AbortError")
@@ -74,16 +72,23 @@ export default function CardSearchInput({
         Promise.resolve(onSubmit?.(q)).finally(() => setIsResolving(false));
     };
 
+    // Shared styling for buttons to match navbar design
+    const buttonStyle = {
+        textShadow:
+            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        border: "1px solid rgba(0, 0, 0, 0.2)",
+    };
+
     return (
         <div className={`flex items-center gap-2 ${className}`}>
             <Autocomplete
                 aria-label="Card search"
                 allowsCustomValue
-                menuTrigger="input" // <-- opens list while typing
-                items={suggestions} // <-- feed items
-                inputValue={query} // controlled value
+                menuTrigger="input"
+                items={suggestions}
+                inputValue={query}
                 onInputChange={(v) => {
-                    // update local + parent
                     setQuery(v);
                     onChange?.(v);
                 }}
@@ -123,12 +128,7 @@ export default function CardSearchInput({
                     isLoading={isResolving}
                     onPress={() => resolveAndSubmit(query)}
                     className="text-black font-medium"
-                    style={{
-                        textShadow:
-                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        backgroundColor: "rgba(255, 255, 255, 0.8)",
-                        border: "1px solid rgba(0, 0, 0, 0.2)",
-                    }}
+                    style={buttonStyle}
                 >
                     Search
                 </Button>
@@ -142,12 +142,7 @@ export default function CardSearchInput({
                     variant="flat"
                     size="md"
                     className="text-black font-medium hidden md:inline-flex"
-                    style={{
-                        textShadow:
-                            "1px 1px 2px white, -1px -1px 2px white, 1px -1px 2px white, -1px 1px 2px white",
-                        backgroundColor: "rgba(255, 255, 255, 0.8)",
-                        border: "1px solid rgba(0, 0, 0, 0.2)",
-                    }}
+                    style={buttonStyle}
                 >
                     Adv.
                 </Button>

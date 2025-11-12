@@ -55,7 +55,6 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
                     onChange={goToPage}
                     showControls
                     size="sm"
-                    // style pagination pills + icons
                     classNames={{
                         base: "gap-2",
                         wrapper: "bg-transparent",
@@ -116,7 +115,6 @@ export default function DeckTable({ rawName, rows, page = 1, totalPages = 1 }) {
                                     <Chip
                                         size="sm"
                                         variant="flat"
-                                        // override visuals so we don’t depend on theme tokens
                                         classNames={{
                                             base: "bg-neutral-800 text-neutral-100 border border-neutral-700",
                                             content: "px-2",

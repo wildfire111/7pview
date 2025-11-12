@@ -1,4 +1,3 @@
-// components/CardDisplay.js
 export default function CardDisplay({ card, children }) {
     const front = getFront(card);
 
@@ -25,10 +24,11 @@ export default function CardDisplay({ card, children }) {
     );
 }
 
+// Extract front face information from Scryfall card data
 function getFront(card) {
     if (!card) return { title: "Unknown Card", url: null };
 
-    // single-faced
+    // Handle single-faced cards
     if (card.image_uris) {
         return {
             title: card.name || "Unknown Card",
@@ -36,7 +36,7 @@ function getFront(card) {
         };
     }
 
-    // multi-faced, front is index 0
+    // Handle multi-faced cards - use front face
     if (Array.isArray(card.card_faces) && card.card_faces.length > 0) {
         const face = card.card_faces[0] || {};
         const uris = face.image_uris || {};

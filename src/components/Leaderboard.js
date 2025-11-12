@@ -24,7 +24,6 @@ const Leaderboard = ({
     showCount = 10,
     period = "period",
 }) => {
-    // Loading skeleton (kept for cases where we still need it)
     if (isLoading) {
         return (
             <Card className="w-full">
@@ -58,7 +57,6 @@ const Leaderboard = ({
         );
     }
 
-    // No data state
     if (!data || !data.top_cards || data.top_cards.length === 0) {
         return (
             <Card className="w-full">

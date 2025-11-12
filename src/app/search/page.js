@@ -6,14 +6,15 @@ import { Button } from "@heroui/react";
 import { Plus } from "lucide-react";
 import CardSearchInput from "@/components/CardSearchInput";
 import ResultsDisplay from "@/components/ResultsDisplay";
+import NotFound from "@/components/NotFound";
 
 function SearchPage() {
     const searchParams = useSearchParams();
     const [inputs, setInputs] = useState([{ id: 1, value: "", include: true }]);
     const [searchResults, setSearchResults] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [lastSearchCriteria, setLastSearchCriteria] = useState(null);
 
-    // Initialize inputs from URL params
     useEffect(() => {
         const includes = searchParams.get("includes")
             ? searchParams
@@ -44,7 +45,6 @@ function SearchPage() {
                 })),
             ];
 
-            // Add empty input at the end if we have any inputs
             if (allInputs.length > 0) {
                 allInputs.push({
                     id: allInputs.length + 1,
@@ -59,7 +59,6 @@ function SearchPage() {
                     : [{ id: 1, value: "", include: true }]
             );
 
-            // Fetch search results
             fetchSearchResults(includes, excludes);
         }
     }, [searchParams]);
@@ -67,9 +66,12 @@ function SearchPage() {
     const fetchSearchResults = async (includes, excludes) => {
         if (includes.length === 0 && excludes.length === 0) {
             setSearchResults(null);
+            setLastSearchCriteria(null);
             return;
         }
 
+        // Store search criteria for NotFound component
+        setLastSearchCriteria({ includes, excludes });
         setLoading(true);
         try {
             const response = await fetch("/api/search", {
@@ -83,12 +85,28 @@ function SearchPage() {
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error("Search request failed");
-            }
-
             const searchData = await response.json();
-            setSearchResults(searchData);
+
+            if (!response.ok) {
+                // Handle the case where some cards were not found
+                if (
+                    response.status === 404 &&
+                    searchData.missingIncludes !== undefined
+                ) {
+                    setSearchResults({
+                        hasResults: false,
+                        error: "cards_not_found",
+                        missingIncludes: searchData.missingIncludes || [],
+                        missingExcludes: searchData.missingExcludes || [],
+                    });
+                } else {
+                    throw new Error(
+                        searchData.error || "Search request failed"
+                    );
+                }
+            } else {
+                setSearchResults(searchData);
+            }
         } catch (error) {
             console.error("Search error:", error);
             setSearchResults({ hasResults: false, includes: [], excludes: [] });
@@ -131,14 +149,10 @@ function SearchPage() {
         if (includes.length) params.set("includes", includes.join("|"));
         if (excludes.length) params.set("excludes", excludes.join("|"));
 
-        // Update URL without full page reload
         window.history.pushState({}, "", `/search?${params.toString()}`);
-
-        // Trigger search
         fetchSearchResults(includes, excludes);
     };
 
-    // Get current search parameters for display
     const currentIncludes = searchParams.get("includes")
         ? searchParams
               .get("includes")
@@ -154,7 +168,6 @@ function SearchPage() {
               .filter(Boolean)
         : [];
 
-    // If no params provided, show the search interface
     if (currentIncludes.length === 0 && currentExcludes.length === 0) {
         return (
             <div className="flex flex-col lg:flex-row min-h-screen gap-6">
@@ -327,12 +340,51 @@ function SearchPage() {
                         <p>No search performed yet.</p>
                     </div>
                 ) : !searchResults.hasResults ? (
-                    <div className="p-4">
-                        <h1>No decks found matching these filters.</h1>
-                    </div>
+                    searchResults.error === "cards_not_found" ? (
+                        <div className="p-4">
+                            <NotFound
+                                title="Search Not Found"
+                                message="The following cards were not found in our database:"
+                                missingIncludes={searchResults.missingIncludes}
+                                missingExcludes={searchResults.missingExcludes}
+                                suggestions={[
+                                    "Check for typos and try again. If your card is not in Scryfall you will also see this error.",
+                                ]}
+                            />
+                        </div>
+                    ) : (
+                        <div className="p-4">
+                            <NotFound
+                                title="No Decks Found"
+                                message="No decks in our database match your search criteria."
+                                searchCriteria={lastSearchCriteria}
+                                suggestions={[
+                                    "Check for typos and try again. If your card is not in Scryfall you will also see this error.",
+                                ]}
+                            />
+                        </div>
+                    )
                 ) : (
                     <ResultsDisplay
-                        rawName={`Custom Search`}
+                        rawName={(() => {
+                            const includeCards =
+                                lastSearchCriteria?.includes || [];
+                            const excludeCards =
+                                lastSearchCriteria?.excludes || [];
+
+                            const lines = [];
+                            if (includeCards.length > 0) {
+                                lines.push(
+                                    `Include: ${includeCards.join(", ")}`
+                                );
+                            }
+                            if (excludeCards.length > 0) {
+                                lines.push(
+                                    `Exclude: ${excludeCards.join(", ")}`
+                                );
+                            }
+                            return lines.join("\n");
+                        })()}
                         includes={searchResults.includes}
                         excludes={searchResults.excludes}
                         searchParams={searchParams}

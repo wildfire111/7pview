@@ -6,7 +6,7 @@ import DateControls from "@/components/DateControls";
 import StatBoxBlock from "@/components/StatBoxBlock";
 import { calculatePerformanceDelta } from "@/lib/statistics";
 
-// helpers
+// Date formatting helpers
 const z2 = (n) => String(n).padStart(2, "0");
 const toISO = (d) =>
     `${d.getFullYear()}-${z2(d.getMonth() + 1)}-${z2(d.getDate())}`;
@@ -23,7 +23,6 @@ export default function ResultsDisplay({
     const [pointsInfo, setPointsInfo] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Fetch points data on mount
     useEffect(() => {
         async function fetchPoints() {
             try {
@@ -34,7 +33,6 @@ export default function ResultsDisplay({
                 }
             } catch (error) {
                 console.error("Failed to fetch points:", error);
-                // Set fallback data
                 setPointsInfo({
                     lastChanged: new Date().toISOString(),
                     commitMessage: "Unable to fetch points data",
@@ -46,12 +44,18 @@ export default function ResultsDisplay({
         }
 
         fetchPoints();
-    }, []); // Empty dependency array - only fetch once on mount
+    }, []);
+
+    // Re-render when searchParams change for pagination
+    useEffect(() => {
+        // Component will recalculate pagination with new searchParams
+    }, [searchParams]);
 
     if (loading || !pointsInfo) {
         return <div className="p-4">Loading statistics...</div>;
     }
 
+    // Find date range from data
     const earliest = includes.reduce((min, r) => {
         const d = new Date(r.event_date);
         return d < min ? d : min;
@@ -62,6 +66,7 @@ export default function ResultsDisplay({
         return d > max ? d : max;
     }, new Date(includes[0].event_date));
 
+    // Parse search parameters for pagination and date filtering
     const sp = searchParams || {};
     const pageParam = Array.isArray(sp?.page) ? sp.page[0] : sp?.page;
     const page = Math.max(1, Number(pageParam || 1));
@@ -74,13 +79,15 @@ export default function ResultsDisplay({
     const startDate = startOfDay(new Date(startISOParam));
     const endDate = endOfDay(new Date(endISOParam));
 
-    // stats
+    // Calculate performance statistics for different time periods
     const block1stats = calculatePerformanceDelta(
         includes,
         excludes,
         earliest,
         latest
     );
+
+    // One year ago stats
     const block2date1year = new Date();
     block2date1year.setFullYear(block2date1year.getFullYear() - 1);
     const block2date = new Date(Math.max(block2date1year, earliest));
@@ -91,6 +98,7 @@ export default function ResultsDisplay({
         new Date()
     );
 
+    // Since last points update
     const block3date = new Date(pointsInfo.lastChanged);
     const block3stats = calculatePerformanceDelta(
         includes,
@@ -98,6 +106,8 @@ export default function ResultsDisplay({
         block3date,
         new Date()
     );
+
+    // Selected date range
     const block4stats = calculatePerformanceDelta(
         includes,
         excludes,
@@ -105,6 +115,7 @@ export default function ResultsDisplay({
         endOfDay(new Date(endISOParam))
     );
 
+    // Filter and paginate results
     const filtered = includes.filter((r) => {
         const d = new Date(r.event_date);
         return d >= startDate && d <= endDate;
@@ -117,7 +128,9 @@ export default function ResultsDisplay({
         <main>
             <div className="mb-4 flex flex-col items-center">
                 <h1 className="text-2xl font-bold mb-2 text-center">
-                    {rawName}
+                    {rawName.split("\n").map((line, index) => (
+                        <div key={index}>{line}</div>
+                    ))}
                 </h1>
                 <StatBoxBlock
                     block1stats={block1stats}

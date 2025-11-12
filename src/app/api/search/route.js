@@ -22,35 +22,58 @@ export async function POST(req) {
             );
         }
 
-        // Get card IDs for includes
-        const includesIDs = await Promise.all(
+        // Get card IDs for includes and track missing cards
+        const includesResults = await Promise.all(
             includes.map(async (cardName) => {
                 try {
                     const result = await getCardIdByName(cardName);
-                    return result.card_id;
+                    const found = result.card_id !== null;
+                    return { cardName, cardId: result.card_id, found };
                 } catch (error) {
-                    // Skip invalid card names
-                    return null;
+                    return { cardName, cardId: null, found: false };
                 }
             })
         );
 
-        // Get card IDs for excludes
-        const excludesIDs = await Promise.all(
+        // Get card IDs for excludes and track missing cards
+        const excludesResults = await Promise.all(
             excludes.map(async (cardName) => {
                 try {
                     const result = await getCardIdByName(cardName);
-                    return result.card_id;
+                    const found = result.card_id !== null;
+                    return { cardName, cardId: result.card_id, found };
                 } catch (error) {
-                    // Skip invalid card names
-                    return null;
+                    return { cardName, cardId: null, found: false };
                 }
             })
         );
 
-        // Filter out null values from failed sanitisation
-        const validIncludesIDs = includesIDs.filter((id) => id !== null);
-        const validExcludesIDs = excludesIDs.filter((id) => id !== null);
+        // Separate found and missing cards
+        const validIncludesIDs = includesResults
+            .filter((r) => r.found)
+            .map((r) => r.cardId);
+        const validExcludesIDs = excludesResults
+            .filter((r) => r.found)
+            .map((r) => r.cardId);
+        const missingIncludes = includesResults
+            .filter((r) => !r.found)
+            .map((r) => r.cardName);
+        const missingExcludes = excludesResults
+            .filter((r) => !r.found)
+            .map((r) => r.cardName);
+
+        // If any cards are missing, return error with details
+        if (missingIncludes.length > 0 || missingExcludes.length > 0) {
+            return NextResponse.json(
+                {
+                    error: "Some cards were not found in the database",
+                    missingIncludes,
+                    missingExcludes,
+                    hasResults: false,
+                },
+                { status: 404 }
+            );
+        }
 
         // Fetch deck data
         const incExcRows = await getDecksIncludingExcluding(
