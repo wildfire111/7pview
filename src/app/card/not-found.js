@@ -8,8 +8,7 @@ export default function CardNotFound() {
                 message="We couldn't find the card you're looking for. It might not be in our database yet, or there could be a typo in the card name."
                 suggestions={[
                     "Check the spelling of the card name",
-                    "Try searching for a similar card",
-                    "Browse our card database to find what you're looking for",
+                    "If it's not a common card, it may not have been played in any of the decks in our database",
                 ]}
             />
         </div>
