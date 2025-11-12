@@ -230,8 +230,8 @@ export default function AboutPage() {
                     <CardBody className="space-y-4">
                         <p>Main contributor: Michael Leslie</p>
                         <p>
-                            If you'd like to help contribute, come check out the
-                            repository at{" "}
+                            If you&apos;d like to help contribute, come check
+                            out the repository at{" "}
                             <a
                                 href="https://github.com/wildfire111/7pview"
                                 target="_blank"
