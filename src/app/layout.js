@@ -1,6 +1,7 @@
 import "./globals.css";
 import NavigationBar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata = {
     title: "Thoughtca.st",
@@ -12,7 +13,10 @@ export default function RootLayout({ children }) {
         <html lang="en" className="dark" data-theme="dark">
             <body className="min-h-screen flex flex-col bg-black text-white">
                 <NavigationBar />
-                <main className="p-6 flex-1">{children}</main>
+                <main className="p-6 flex-1">
+                    {children}
+                    <Analytics />
+                </main>
                 <Footer />
             </body>
         </html>
