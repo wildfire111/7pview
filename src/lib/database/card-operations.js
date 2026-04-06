@@ -25,6 +25,25 @@ export async function getCardIdByName(name) {
 }
 
 /**
+ * Get scryfall IDs for multiple card names in a single query
+ * @param {string[]} names - Card names to look up
+ * @returns {Promise<Map<string, string>>} Map of card name to scryfall_id
+ */
+export async function getCardIdsByNames(names) {
+    if (!names?.length) return new Map();
+    try {
+        const { rows } = await query(
+            "SELECT name, scryfall_id FROM cards WHERE name = ANY($1)",
+            [names]
+        );
+        return new Map(rows.map((r) => [r.name, r.scryfall_id]));
+    } catch (err) {
+        console.error("Database error in getCardIdsByNames:", err);
+        throw new Error("Failed to fetch card IDs");
+    }
+}
+
+/**
  * Get all decks containing a specific card
  * @param {string} cardId - Scryfall ID of the card
  * @returns {Promise<string[]>} Array of deck IDs

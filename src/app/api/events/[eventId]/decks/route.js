@@ -11,10 +11,16 @@ export async function GET(request, { params }) {
     const { eventId } = await params;
 
     try {
-        // Validate eventId is provided
+        // Validate eventId is provided and is a positive integer
         if (!eventId) {
             return NextResponse.json(
                 { error: "Event ID is required" },
+                { status: 400 }
+            );
+        }
+        if (!/^\d+$/.test(eventId)) {
+            return NextResponse.json(
+                { error: "Invalid event ID" },
                 { status: 400 }
             );
         }

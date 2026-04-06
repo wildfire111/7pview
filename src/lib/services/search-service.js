@@ -4,71 +4,46 @@
  */
 
 import {
-    getCardIdByName,
+    getCardIdsByNames,
     getDecksWithCardFilter,
+    getDecksLogicalInverse,
 } from "@/lib/database/index.js";
 
 /**
- * Search for decks based on include/exclude card criteria
+ * Search for decks based on include/exclude card criteria.
+ * Throws a structured error (message "CARDS_NOT_FOUND") if any card names
+ * cannot be resolved — callers should catch this and surface it as a 404.
+ *
  * @param {string[]} includeCardNames - Card names that must be included
  * @param {string[]} excludeCardNames - Card names that must be excluded
- * @returns {Promise<Object>} Search results with deck data
+ * @returns {Promise<{includes: Object[], excludes: Object[]}>} Matching and inverse decks
  */
 export async function searchDecks(
     includeCardNames = [],
     excludeCardNames = []
 ) {
-    try {
-        // Resolve card names to IDs in parallel
-        const [includeIds, excludeIds] = await Promise.all([
-            resolveCardNames(includeCardNames),
-            resolveCardNames(excludeCardNames),
-        ]);
+    // Resolve all names in a single batch query
+    const nameMap = await getCardIdsByNames([...includeCardNames, ...excludeCardNames]);
 
-        // Fetch decks matching criteria
-        const decks = await getDecksWithCardFilter(includeIds, excludeIds);
+    const missingIncludes = includeCardNames.filter((n) => !nameMap.has(n));
+    const missingExcludes = excludeCardNames.filter((n) => !nameMap.has(n));
 
-        // Get logical inverse (decks without the included cards)
-        const inverseDecks =
-            excludeIds.length > 0
-                ? await getDecksWithCardFilter([], includeIds)
-                : await getDecksWithCardFilter([], []);
-
-        return {
-            includes: decks,
-            excludes: inverseDecks.filter(
-                (deck) => !decks.some((d) => d.deck_id === deck.deck_id)
-            ),
-            metadata: {
-                include_cards: includeCardNames,
-                exclude_cards: excludeCardNames,
-                total_include_decks: decks.length,
-                search_timestamp: new Date().toISOString(),
-            },
-        };
-    } catch (error) {
-        console.error("Search service error:", error);
-        throw new Error(`Search failed: ${error.message}`);
+    if (missingIncludes.length > 0 || missingExcludes.length > 0) {
+        const err = new Error("CARDS_NOT_FOUND");
+        err.missingIncludes = missingIncludes;
+        err.missingExcludes = missingExcludes;
+        throw err;
     }
-}
 
-/**
- * Resolve array of card names to Scryfall IDs
- * @param {string[]} cardNames - Array of card names to resolve
- * @returns {Promise<string[]>} Array of resolved Scryfall IDs
- */
-async function resolveCardNames(cardNames) {
-    if (!cardNames?.length) return [];
+    const includeIds = includeCardNames.map((n) => nameMap.get(n));
+    const excludeIds = excludeCardNames.map((n) => nameMap.get(n));
 
-    const results = await Promise.allSettled(
-        cardNames.map((name) => getCardIdByName(name))
-    );
+    const [includes, excludes] = await Promise.all([
+        getDecksWithCardFilter(includeIds, excludeIds),
+        getDecksLogicalInverse(includeIds, excludeIds),
+    ]);
 
-    return results
-        .filter(
-            (result) => result.status === "fulfilled" && result.value.card_id
-        )
-        .map((result) => result.value.card_id);
+    return { includes, excludes };
 }
 
 /**
@@ -81,27 +56,19 @@ export async function validateCardNames(cardNames) {
         return { valid: [], invalid: [] };
     }
 
-    const results = await Promise.allSettled(
-        cardNames.map(async (name) => {
-            const result = await getCardIdByName(name);
-            return { name, found: !!result.card_id, id: result.card_id };
-        })
-    );
+    const nameMap = await getCardIdsByNames(cardNames);
 
     const valid = [];
     const invalid = [];
 
-    results.forEach((result) => {
-        if (result.status === "fulfilled") {
-            if (result.value.found) {
-                valid.push(result.value);
-            } else {
-                invalid.push(result.value.name);
-            }
+    for (const name of cardNames) {
+        const id = nameMap.get(name);
+        if (id) {
+            valid.push({ name, found: true, id });
         } else {
-            invalid.push("Unknown card");
+            invalid.push(name);
         }
-    });
+    }
 
     return { valid, invalid };
 }

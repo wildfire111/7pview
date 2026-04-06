@@ -123,9 +123,9 @@ export default function NotFound({
                     {suggestions.length > 0 && (
                         <div className="text-sm text-default-500 space-y-2">
                             <p>Try:</p>
-                            <ul className="text-left space-y-1">
+                            <ul className="text-left space-y-1 list-disc list-inside">
                                 {suggestions.map((suggestion, index) => (
-                                    <li key={index}>• {suggestion}</li>
+                                    <li key={index}>{suggestion}</li>
                                 ))}
                             </ul>
                         </div>

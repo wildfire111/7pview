@@ -150,7 +150,10 @@ export async function getDeckResultsForStats(startDate, endDate) {
  * @param {string[]} excludeCards - Cards that must be excluded
  * @returns {Promise<Object[]>} Array of deck objects that don't match the filter
  */
-export async function getDecksLogicalInverse(includeCards, excludeCards) {
+export async function getDecksLogicalInverse(
+    includeCards = [],
+    excludeCards = []
+) {
     try {
         // A = decks that satisfy include ∧ no excludes
         const matchingDecks = await getDecksWithCardFilter(

@@ -3,7 +3,7 @@
  * Handles GitHub API integration and points data processing
  */
 
-import { getCardIdByName } from "@/lib/database/index.js";
+import { getCardIdsByNames } from "@/lib/database/index.js";
 
 // Cache configuration
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
@@ -132,9 +132,10 @@ async function fetchCommitInfo(config) {
  * @returns {Promise<Object[]>} Array of parsed card objects
  */
 async function parsePointsFile(content) {
-    const parsedCards = [];
     const lines = content.split("\n").filter((line) => line.trim());
 
+    // Parse all lines first
+    const parsed = [];
     for (const line of lines) {
         const trimmedLine = line.trim();
         if (!trimmedLine) continue;
@@ -148,21 +149,17 @@ async function parsePointsFile(content) {
         const points = parseInt(pointsStr, 10);
 
         if (!cardName || isNaN(points)) continue;
-
-        // Resolve card name to Scryfall ID
-        try {
-            const cardInfo = await getCardIdByName(cardName);
-            if (cardInfo.card_id) {
-                parsedCards.push({
-                    name: cardName,
-                    points: points,
-                    scryfall_id: cardInfo.card_id,
-                });
-            }
-        } catch (err) {
-            console.warn(`Could not resolve card: ${cardName}`, err.message);
-        }
+        parsed.push({ name: cardName, points });
     }
 
-    return parsedCards;
+    // Resolve all card names in a single batch query
+    const nameMap = await getCardIdsByNames(parsed.map((c) => c.name));
+
+    return parsed
+        .filter((c) => nameMap.has(c.name))
+        .map((c) => ({
+            name: c.name,
+            points: c.points,
+            scryfall_id: nameMap.get(c.name),
+        }));
 }

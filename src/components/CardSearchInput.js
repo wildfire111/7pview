@@ -50,6 +50,7 @@ export default function CardSearchInput({
                     )}`,
                     { signal: controller.signal }
                 );
+                if (!r.ok) throw new Error(`Scryfall error: ${r.status}`);
                 const j = await r.json();
                 const names = Array.isArray(j?.data) ? j.data.slice(0, 20) : [];
                 setSuggestions(names.map((n) => ({ id: n, label: n })));

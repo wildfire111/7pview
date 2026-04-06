@@ -55,6 +55,10 @@ export default function ResultsDisplay({
         return <div className="p-4">Loading statistics...</div>;
     }
 
+    if (!includes?.length) {
+        return <div className="p-4">No results found.</div>;
+    }
+
     // Find date range from data
     const earliest = includes.reduce((min, r) => {
         const d = new Date(r.event_date);

@@ -7,7 +7,7 @@
 export { query, pool } from "./db.js";
 
 // Card operations
-export { getCardIdByName, getDecksContainingCard } from "./card-operations.js";
+export { getCardIdByName, getCardIdsByNames, getDecksContainingCard } from "./card-operations.js";
 
 // Deck operations
 export {
@@ -20,5 +20,3 @@ export {
 // Leaderboard queries
 export { getLeaderboardCardData } from "./leaderboard-queries.js";
 
-export { getCardIdByName as getCardIDByName } from "./card-operations.js";
-export { getDecksWithCardFilter as getDecksIncludingExcluding } from "./deck-operations.js";

@@ -1,9 +1,5 @@
 import { notFound } from "next/navigation";
-import { getCardIdByName } from "@/lib/database";
-import {
-    getDecksIncludingExcluding,
-    getDecksLogicalInverse,
-} from "@/lib/database";
+import { getCardByName, getCardDecks } from "@/lib/services/card-service.js";
 import ResultsDisplay from "@/components/ResultsDisplay";
 
 export default async function Page({ params, searchParams }) {
@@ -25,12 +21,11 @@ export default async function Page({ params, searchParams }) {
     if (res.status === 404) return notFound();
     if (!res.ok) return notFound();
 
-    const card = await getCardIdByName(cardName).catch(() => null);
+    const card = await getCardByName(cardName).catch(() => null);
     if (!card?.card_id) return notFound();
 
     // Fetch lists. Pass raw rows to the component so it can do all calculating
-    const includes = await getDecksIncludingExcluding([card.card_id], []);
-    const excludes = await getDecksLogicalInverse([card.card_id], []);
+    const { includes, excludes } = await getCardDecks(card.card_id);
 
     if (!includes?.length) {
         return (
